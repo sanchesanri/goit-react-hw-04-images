@@ -1,13 +1,13 @@
-import { ModalST, OverlayST } from "./Modal.styled"
+import { Component } from 'react';
+import { ModalST, OverlayST } from './Modal.styled';
 
-
-export const Modal = () => {
-
+export class Modal extends Component {
+  componentDidMount() {}
+  render() {
     return (
-        <OverlayST class="overlay">
-            <ModalST class="modal">
-                <img src="" alt="" />
-            </ModalST>
-        </OverlayST>
-    )
+      <OverlayST>
+        <ModalST></ModalST>
+      </OverlayST>
+    );
+  }
 }

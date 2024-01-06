@@ -4,6 +4,7 @@ import { requestPost } from './services/api';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
+import { Modal } from './Modal/Modal';
 
 export class App extends Component {
   state = {
@@ -12,13 +13,13 @@ export class App extends Component {
     page: 1,
     status: 'idle', //pending || success || error
     per_page: 12,
-    error: false,
     totalHits: null,
     isLastPage: false,
+    isOpenModal: false,
+    selectedImg: null,
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState.status);
+  componentDidUpdate(_, prevState) {
     if (
       this.state.page !== prevState.page ||
       this.state.query !== prevState.query
@@ -26,9 +27,8 @@ export class App extends Component {
       this.fetchPost();
 
       this.setState({
-        // status: 'success',
-        isLastPage: this.isLastPage()
-      })
+        isLastPage: this.isLastPage(),
+      });
     }
   }
 
@@ -48,14 +48,14 @@ export class App extends Component {
       this.setState(prevState => ({
         post: [...prevState.post, ...posts.hits],
         totalHits: posts.totalHits,
-        status: 'success'
+        status: 'success',
       }));
     } catch (error) {
-      console.log(error);
+      this.setState({ status: 'error' });
     }
   };
 
-  onClick = () => {
+  onClickBtn = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
@@ -70,17 +70,32 @@ export class App extends Component {
     });
   };
 
+  onClickModal = id => {
+    console.log('Modal click');
+    const selectedImg = this.state.post.find(img => img.id === id);
+    this.setState({ selectedImg, isOpenModal: true });
+  };
+
+  onModalClose = () => {
+    this.setState({ isOpenModal: false });
+  };
+
   render() {
-    const { post, isLastPage, status } = this.state;
+    const { post, isLastPage, status, isOpenModal, selectedImg } = this.state;
 
     return (
       <div>
         <Searchbar handlerForm={this.onSubmit} />
-        {/* {Array.isArray(post) && <ImageGallery dataPhotos={post} />}
-        {Array.isArray(post) && <Button handlerClick={this.onClick} />} */}
         {status === 'pending' && <Loader />}
-        {post.length > 0 && <ImageGallery dataPhotos={post} />}
-        {post.length > 0 && !isLastPage && <Button handlerClick={this.onClick} />}
+        {post.length > 0 && (
+          <ImageGallery dataPhotos={post} onClickModal={this.onClickModal} />
+        )}
+        {post.length > 0 && !isLastPage && (
+          <Button handlerClick={this.onClickBtn} />
+        )}
+        {isOpenModal && (
+          <Modal dataPhotos={selectedImg} onModalClose={this.onModalClose} />
+        )}
       </div>
     );
   }
