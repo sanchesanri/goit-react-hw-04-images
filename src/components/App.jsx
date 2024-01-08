@@ -43,7 +43,6 @@ export class App extends Component {
       this.setState({ status: 'pending' });
 
       const posts = await requestPost(page, query, per_page);
-      console.log(posts);
 
       this.setState(prevState => ({
         post: [...prevState.post, ...posts.hits],
@@ -71,7 +70,6 @@ export class App extends Component {
   };
 
   onClickModal = id => {
-    console.log('Modal click');
     const selectedImg = this.state.post.find(img => img.id === id);
     this.setState({ selectedImg, isOpenModal: true });
   };

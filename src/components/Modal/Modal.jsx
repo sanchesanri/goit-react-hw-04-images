@@ -1,13 +1,33 @@
 import { Component } from 'react';
-import { ModalST, OverlayST } from './Modal.styled';
+import { ModalStyle, Overlay } from './Modal.styled';
 
 export class Modal extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    window.addEventListener('keydown', this.closeModalEsc);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.closeModalEsc);
+  }
+
+  closeModalEsc = evt => {
+    if (evt.code === 'Escape') {
+      this.props.onModalClose();
+    }
+  };
+
+  backdropCloseModal = evt => {
+    if (evt.target === evt.currentTarget) {
+      this.props.onModalClose();
+    }
+  };
   render() {
+    const { largeImageURL, tags } = this.props.dataPhotos;
     return (
-      <OverlayST>
-        <ModalST></ModalST>
-      </OverlayST>
+      <Overlay onClick={this.backdropCloseModal}>
+        <ModalStyle>
+          <img src={largeImageURL} alt={tags} />
+        </ModalStyle>
+      </Overlay>
     );
   }
 }

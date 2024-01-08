@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ImageGalleryST = styled.ul`
   display: grid;
@@ -11,4 +11,4 @@ export const ImageGalleryST = styled.ul`
   list-style: none;
   margin-left: auto;
   margin-right: auto;
-`
+`;
