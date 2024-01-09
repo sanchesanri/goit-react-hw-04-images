@@ -13,7 +13,9 @@ export class App extends Component {
     page: 1,
     status: 'idle', //pending || success || error
     per_page: 12,
-    totalHits: null,
+    largeImg: null,
+    altImg: null,
+    showBtn: false,
     isLastPage: false,
     isOpenModal: false,
     selectedImg: null,
@@ -25,16 +27,8 @@ export class App extends Component {
       this.state.query !== prevState.query
     ) {
       this.fetchPost();
-
-      this.setState({
-        isLastPage: this.isLastPage(),
-      });
     }
   }
-
-  isLastPage = () => {
-    return this.state.page === Math.ceil(this.state.totalHits / 12);
-  };
 
   fetchPost = async () => {
     const { page, query, per_page } = this.state;
@@ -46,7 +40,8 @@ export class App extends Component {
 
       this.setState(prevState => ({
         post: [...prevState.post, ...posts.hits],
-        totalHits: posts.totalHits,
+
+        showBtn: this.state.page < Math.ceil(posts.totalHits / 12),
         status: 'success',
       }));
     } catch (error) {
@@ -69,9 +64,8 @@ export class App extends Component {
     });
   };
 
-  onClickModal = id => {
-    const selectedImg = this.state.post.find(img => img.id === id);
-    this.setState({ selectedImg, isOpenModal: true });
+  onClickModal = (large, alt) => {
+    this.setState({ largeImg: large, altImg: alt, isOpenModal: true });
   };
 
   onModalClose = () => {
@@ -79,7 +73,7 @@ export class App extends Component {
   };
 
   render() {
-    const { post, isLastPage, status, isOpenModal, selectedImg } = this.state;
+    const { post, status, isOpenModal, showBtn, largeImg, altImg } = this.state;
 
     return (
       <div>
@@ -88,11 +82,16 @@ export class App extends Component {
         {post.length > 0 && (
           <ImageGallery dataPhotos={post} onClickModal={this.onClickModal} />
         )}
-        {post.length > 0 && !isLastPage && (
+        {post.length > 0 && showBtn && (
           <Button handlerClick={this.onClickBtn} />
         )}
         {isOpenModal && (
-          <Modal dataPhotos={selectedImg} onModalClose={this.onModalClose} />
+          // <Modal dataPhotos={selectedImg} onModalClose={this.onModalClose} />
+          <Modal
+            largeImg={largeImg}
+            altImg={altImg}
+            onModalClose={this.onModalClose}
+          />
         )}
       </div>
     );

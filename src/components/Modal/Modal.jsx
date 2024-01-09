@@ -21,11 +21,12 @@ export class Modal extends Component {
     }
   };
   render() {
-    const { largeImageURL, tags } = this.props.dataPhotos;
+    const { largeImg, altImg } = this.props;
+
     return (
       <Overlay onClick={this.backdropCloseModal}>
         <ModalStyle>
-          <img src={largeImageURL} alt={tags} />
+          <img src={largeImg} alt={altImg} />
         </ModalStyle>
       </Overlay>
     );

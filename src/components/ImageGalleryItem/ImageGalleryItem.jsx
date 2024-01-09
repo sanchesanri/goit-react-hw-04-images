@@ -7,7 +7,7 @@ export const ImageGalleryItem = ({ id, thumb, large, alt, onClickModal }) => {
         src={thumb}
         alt={alt}
         onClick={() => {
-          onClickModal(id, large, alt);
+          onClickModal(large, alt);
         }}
       />
     </Item>
