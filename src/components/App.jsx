@@ -8,6 +8,7 @@ import { Modal } from './Modal/Modal';
 
 export class App extends Component {
   state = {
+    1: 1,
     query: null,
     post: [],
     page: 1,
