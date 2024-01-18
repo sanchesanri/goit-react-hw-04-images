@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const requestPost = async (page, query, per_page) => {
-    // https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
     const params = {
         q: query,
         per_page,
