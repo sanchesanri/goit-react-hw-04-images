@@ -3,7 +3,6 @@ import { ImageGalleryST } from './ImageGallery.styled';
 import { v4 as uuidv4 } from 'uuid';
 import { useRef } from 'react';
 
-// export const ImageGallery = ({ dataPhotos, onCardClick }) => (
 export const ImageGallery = ({ dataPhotos, onClickModal }) => {
   const uniqueKey = useRef();
   return (

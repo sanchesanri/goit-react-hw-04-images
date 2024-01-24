@@ -9,22 +9,22 @@ export const GlobalStyles = css`
     scroll-behavior: smooth;
   }
 
-    *,
-    *::before,
-    *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: inherit;
   }
 
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-      color:${theme.colors.dark}
+      Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    color: ${theme.colors.dark};
     background: ${theme.colors.white};
     min-height: 100vh;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
