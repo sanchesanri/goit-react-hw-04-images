@@ -34,7 +34,7 @@ export function App() {
     };
 
     fetchPost();
-  }, [page, query]);
+  }, [page, query, per_page]);
 
   const onClickBtn = () => {
     setPage(prevState => prevState + 1);
