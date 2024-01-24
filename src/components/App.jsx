@@ -11,7 +11,7 @@ export function App() {
   const [post, setPost] = useState([]);
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState('idle');
-  const [per_page, setPer_page] = useState(12);
+  const [per_page] = useState(12);
   const [largeImg, setLargeImg] = useState(null);
   const [altImg, setAltImg] = useState(null);
   const [showBtn, setShowBtn] = useState(false);
