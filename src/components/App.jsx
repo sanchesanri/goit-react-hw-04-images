@@ -18,7 +18,7 @@ export function App() {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
-    if (!query) return;
+    if (query === '') return;
 
     const fetchPost = async () => {
       try {
@@ -26,7 +26,9 @@ export function App() {
         const posts = await requestPost(page, query, per_page);
 
         setPost(prevState => [...prevState, ...posts.hits]);
+
         setShowBtn(page < Math.ceil(posts.totalHits / 12));
+
         setStatus('success');
       } catch (error) {
         setStatus('error');
